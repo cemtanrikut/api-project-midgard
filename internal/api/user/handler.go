@@ -1,13 +1,13 @@
 package api
 
 type UserStruct struct{
-    Name string
-    Surname string
-    Email string
-    Password string
-    Nickname string
-    Birthdate string
-    Gender string
+    Name string `json:name`
+    Surname string `json:surname`
+    Email string `json:email`
+    Password string `json:password`
+    Username string `json:username`
+    Birthdate string `json:birthdate`
+    IsActive bool `json:is_active`
 }
 
 type UserResponse struct{
@@ -71,4 +71,34 @@ func UpdateUserHandler(userStruct UserStruct) {
 
         return response
     }
+
+    response := UserResponse{
+        StatusCode: http.StatusOK,
+        Message: "user updated",
+        Model: userStruct
+    }
+
+    return response
+}
+
+func DeleteUserHandler(userStruct UserStruct) {
+    if userStruct == nil {
+        response := UserResponse{
+            StatusCode: http.StatusBadRequest,
+            Message: "user couldn't fetch",
+            Model: nil
+        }
+
+        return response
+    }
+
+    userStruct.IsActive = false
+
+    response := UserResponse{
+        StatusCode: http.StatusBadRequest,
+        Message: "user deleted",
+        Model: nil
+    }
+
+    return response
 }
