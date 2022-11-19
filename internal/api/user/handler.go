@@ -10,95 +10,50 @@ type UserStruct struct{
     IsActive bool `json:is_active`
 }
 
-type UserResponse struct{
-    StatusCode int
-    Message string
-    Model interface
-}
 
 //? Creates user
 func CreateUserHandler(userStruct UserStruct) UserResponse {
     if userStruct == nil {
-        response := UserResponse{
-            StatusCode: http.StatusBadRequest,
-            Message: "user couldn't fetch",
-            Model: nil
-        }
-
+        response := ResponseHandler(http.StatusBadRequest, "user couldn't fetch", nil)
         return response
     }
     user := UserStruct{}
-
-    response := UserResponse{
-        StatusCode: http.StatusOK,
-        Message: "Success",
-        Model: user
-    }
-
+    
+    response := ResponseHandler(http.StatusOK, "user created", user)
     return response
 }
 
 //? Gets user
 func GetUserHandler(userID) UserResponse {
     if userID == ""{
-        response := UserResponse{
-            StatusCode: http.StatusBadRequest,
-            Message: "user_id couldn't fetch",
-            Model: nil
-        }
-
+        response := ResponseHandler(http.StatusBadRequest, "user_id couldn't fetch", nil)
         return response
     }
 
     user := UserStruct{}
     
-    response := UserResponse{
-        StatusCode: http.StatusOK,
-        Message: "Success",
-        Model: user
-    }
-
+    response := ResponseHandler(http.StatusOK, "user created", user)
     return response
 }
 
 func UpdateUserHandler(userStruct UserStruct) {
     if userStruct == nil {
-        response := UserResponse{
-            StatusCode: http.StatusBadRequest,
-            Message: "user couldn't fetch",
-            Model: nil
-        }
-
+        response := ResponseHandler(http.StatusBadRequest, "user couldn't fetch", nil)
         return response
     }
 
-    response := UserResponse{
-        StatusCode: http.StatusOK,
-        Message: "user updated",
-        Model: userStruct
-    }
-
+    response := ResponseHandler(http.StatusOK, "user updated", user)
     return response
 }
 
 func DeleteUserHandler(userStruct UserStruct) {
     if userStruct == nil {
-        response := UserResponse{
-            StatusCode: http.StatusBadRequest,
-            Message: "user couldn't fetch",
-            Model: nil
-        }
-
+        response := ResponseHandler(http.StatusBadRequest, "user couldn't fetch", nil)
         return response
     }
 
     userStruct.IsActive = false
 
-    response := UserResponse{
-        StatusCode: http.StatusBadRequest,
-        Message: "user deleted",
-        Model: nil
-    }
-
+    response := ResponseHandler(http.StatusOK, "user deleted", user)
     return response
 }
